@@ -1,0 +1,16 @@
+laravel: '@testbench'
+
+migrations:
+  - workbench/database/migrations
+
+env:
+  - APP_KEY=AckfSECXIvnK5r28GVIWUAxmbBSjTsmF
+
+workbench:
+  install: false
+  build:
+    - create-sqlite-db
+    - db-wipe
+    - migrate-fresh:
+        --seed: true
+        --seeder: Workbench\Database\Seeders\SecretSeeder

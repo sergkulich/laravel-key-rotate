@@ -1,0 +1,84 @@
+{
+  "name": "sergkulich/laravel-key-rotate",
+  "description": "A Laravel package to rotate app key and re-encrypt data stored in eloquent models.",
+  "keywords": [
+    "laravel",
+    "key",
+    "rotate",
+    "command",
+    "re-encrypt"
+  ],
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Siarhei Kulich",
+      "email": "siarhei.kulich@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "^8.2"
+  },
+  "require-dev": {
+    "larastan/larastan": "^2.9",
+    "laravel/pint": "^1.18",
+    "orchestra/testbench": "^9.6",
+    "pestphp/pest": "^3.5",
+    "pestphp/pest-plugin-laravel": "^3.0",
+    "pestphp/pest-plugin-type-coverage": "^3.1",
+    "phpstan/extension-installer": "^1.4",
+    "rector/rector": "^1.2",
+    "symfony/var-dumper": "^7.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "SergKulich\\LaravelKeyRotate\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "SergKulich\\LaravelKeyRotate\\Tests\\": "tests/",
+      "Workbench\\App\\": "workbench/app/",
+      "Workbench\\Database\\Seeders\\": "workbench/database/seeders/"
+    }
+  },
+  "scripts": {
+    "post-autoload-dump": "@php vendor/bin/testbench package:discover",
+    "lint": "@php vendor/bin/pint",
+    "refactor": "@php vendor/bin/rector process",
+    "test:prepare": "@php vendor/bin/testbench workbench:build",
+    "test:refactor": "@php vendor/bin/rector process --dry-run",
+    "test:lint": "@php vendor/bin/pint --test",
+    "test:types": "@php vendor/bin/phpstan analyse",
+    "test:typec": "@php vendor/bin/pest --type-coverage --min=100",
+    "test:unit": "@php vendor/bin/pest --coverage --parallel --min=100",
+    "test": [
+      "@test:prepare",
+      "@test:refactor",
+      "@test:lint",
+      "@test:types",
+      "@test:typec",
+      "@test:unit"
+    ]
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "SergKulich\\LaravelKeyRotate\\KeyRotateServiceProvider"
+      ],
+      "aliases": {
+        "KeyRotate": "SergKulich\\LaravelKeyRotate\\Facades\\KeyRotate"
+      }
+    }
+  },
+  "config": {
+    "sort-packages": true,
+    "preferred-install": "dist",
+    "allow-plugins": {
+      "pestphp/pest-plugin": true,
+      "phpstan/extension-installer": true
+    }
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
+}
